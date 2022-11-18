@@ -348,6 +348,105 @@
       "contributions": [
         "ideas"
       ]
+    },
+    {
+      "login": "jsberlanga",
+      "name": "Julio Soto",
+      "avatar_url": "https://avatars.githubusercontent.com/u/32543746?v=4",
+      "profile": "https://juliosoto.dev",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "jmtes",
+      "name": "Juno Tesoro",
+      "avatar_url": "https://avatars.githubusercontent.com/u/38450133?v=4",
+      "profile": "http://jmtes.github.io",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "aosante",
+      "name": "Andrés Osante",
+      "avatar_url": "https://avatars.githubusercontent.com/u/37124700?v=4",
+      "profile": "http://www.andresosante.com",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "IanVS",
+      "name": "Ian VanSchooten",
+      "avatar_url": "https://avatars.githubusercontent.com/u/4616705?v=4",
+      "profile": "https://github.com/IanVS",
+      "contributions": [
+        "test"
+      ]
+    },
+    {
+      "login": "giancarlol",
+      "name": "Giancarlo Brusca",
+      "avatar_url": "https://avatars.githubusercontent.com/u/33439343?v=4",
+      "profile": "https://github.com/giancarlol",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "tsargent",
+      "name": "Tyler Sargent",
+      "avatar_url": "https://avatars.githubusercontent.com/u/173215?v=4",
+      "profile": "https://github.com/tsargent",
+      "contributions": [
+        "test"
+      ]
+    },
+    {
+      "login": "pvinis",
+      "name": "Pavlos Vinieratos",
+      "avatar_url": "https://avatars.githubusercontent.com/u/100233?v=4",
+      "profile": "http://pavlos.dev",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "Hillsie",
+      "name": "Hills",
+      "avatar_url": "https://avatars.githubusercontent.com/u/17975287?v=4",
+      "profile": "https://github.com/Hillsie",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "diegotc86",
+      "name": "Diego Torres",
+      "avatar_url": "https://avatars.githubusercontent.com/u/23508800?v=4",
+      "profile": "https://github.com/diegotc86",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "icyJoseph",
+      "name": "Joseph",
+      "avatar_url": "https://avatars.githubusercontent.com/u/21013447?v=4",
+      "profile": "https://icyjoseph.dev/",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "marioleed",
+      "name": "Mario Sannum",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1763448?v=4",
+      "profile": "https://github.com/marioleed",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,

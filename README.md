@@ -35,13 +35,13 @@
 ## Additional Resources
 
 - Videos
-  [Getting Closure on React Hooks by Shaen Wang](https://www.youtube.com/watch?v=KJP1E-Y-xyo)
+  [Getting Closure on React Hooks by Shawn Wang](https://www.youtube.com/watch?v=KJP1E-Y-xyo)
   (26 minutes)
 
 ## System Requirements
 
 - [git][git] v2.13 or greater
-- [NodeJS][node] `^10.13 || 12 || 14 || 15`
+- [NodeJS][node] `12 || 14 || 15 || 16 || 17`
 - [npm][npm] v6 or greater
 
 All of these must be available in your `PATH`. To verify things are set up
@@ -128,40 +128,55 @@ however _sometimes_ you can accomplish the task and the tests still fail if you
 implement things differently than I do in my solution, so don't look to them as
 a complete authority.
 
+## TypeScript
+
+You can go through this workshop with TypeScript or JavaScript. All the files
+are TypeScript files, but if you run the script in `./scripts/remove-ts` then
+all the files will be renamed and all the TypeScript typing code will be
+removed.
+
+If you have experience with TypeScript then I suggest you go through the
+workshop material with TypeScript. However, if you don't have experience with
+TypeScript, I strongly advise you remove the TypeScript. It's very difficult to
+learn two things at once and you'll likely find yourself frustrated.
+
 ### Exercises
 
 - `src/exercise/00.md`: Background, Exercise Instructions, Extra Credit
-- `src/exercise/00.js`: Exercise with Emoji helpers
-- `src/__tests__/00.js`: Tests
-- `src/final/00.js`: Final version
-- `src/final/00.extra-0.js`: Final version of extra credit
+- `src/exercise/00.tsx`: Exercise with Emoji helpers
+- `src/__tests__/00.tsx`: Tests
+- `src/final/00.tsx`: Final version
+- `src/final/00.extra-0.tsx`: Final version of extra credit
 
 The purpose of the exercise is **not** for you to work through all the material.
 It's intended to get your brain thinking about the right questions to ask me as
 _I_ walk through the material.
 
-### Helpful Emoji 🐨 💪 🏁 💰 💯 🦉 📜 💣 👨‍💼 🚨
+### Helpful Emoji 🐨 🦺 💰 💯 📝 🦉 📜 💣 💪 🏁 👨‍💼 🚨
 
 Each exercise has comments in it to help you get through the exercise. These fun
 emoji characters are here to help you.
 
 - **Kody the Koala** 🐨 will tell you when there's something specific you should
   do
-- **Matthew the Muscle** 💪 will indicate what you're working with an exercise
-- **Chuck the Checkered Flag** 🏁 will indicate that you're working with a final
-  version
+- **Lily the Life Jacket** 🦺 will help you with any TypeScript-specific parts
+  of the exercises
 - **Marty the Money Bag** 💰 will give you specific tips (and sometimes code)
   along the way
 - **Hannah the Hundred** 💯 will give you extra challenges you can do if you
-  finish the exercises early.
+  finish the exercises early
+- **Nancy the Notepad** 📝 will encourage you to take notes on what you're
+  learning
 - **Olivia the Owl** 🦉 will give you useful tidbits/best practice notes and a
-  link for elaboration and feedback.
+  link for elaboration and feedback
 - **Dominic the Document** 📜 will give you links to useful documentation
 - **Berry the Bomb** 💣 will be hanging around anywhere you need to blow stuff
   up (delete code)
+- **Matthew the Muscle** 💪 will indicate that you're working with an exercise
+- **Chuck the Checkered Flag** 🏁 will indicate that you're working with a final
 - **Peter the Product Manager** 👨‍💼 helps us know what our users want
 - **Alfred the Alert** 🚨 will occasionally show up in the test failures with
-  potential explanations for why the tests are failing.
+  potential explanations for why the tests are failing
 
 ## Contributors
 
@@ -220,6 +235,19 @@ Thanks goes to these wonderful people
   <tr>
     <td align="center"><a href="https://github.com/jwm0"><img src="https://avatars0.githubusercontent.com/u/28310983?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jakub Majorek</b></sub></a><br /><a href="https://github.com/kentcdodds/advanced-react-hooks/commits?author=jwm0" title="Code">💻</a></td>
     <td align="center"><a href="https://suddenlyGiovanni.dev"><img src="https://avatars2.githubusercontent.com/u/15946771?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Giovanni Ravalico</b></sub></a><br /><a href="#ideas-suddenlyGiovanni" title="Ideas, Planning, & Feedback">🤔</a></td>
+    <td align="center"><a href="https://juliosoto.dev"><img src="https://avatars.githubusercontent.com/u/32543746?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Julio Soto</b></sub></a><br /><a href="https://github.com/kentcdodds/advanced-react-hooks/commits?author=jsberlanga" title="Code">💻</a></td>
+    <td align="center"><a href="http://jmtes.github.io"><img src="https://avatars.githubusercontent.com/u/38450133?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Juno Tesoro</b></sub></a><br /><a href="https://github.com/kentcdodds/advanced-react-hooks/commits?author=jmtes" title="Documentation">📖</a></td>
+    <td align="center"><a href="http://www.andresosante.com"><img src="https://avatars.githubusercontent.com/u/37124700?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Andrés Osante</b></sub></a><br /><a href="https://github.com/kentcdodds/advanced-react-hooks/commits?author=aosante" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/IanVS"><img src="https://avatars.githubusercontent.com/u/4616705?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ian VanSchooten</b></sub></a><br /><a href="https://github.com/kentcdodds/advanced-react-hooks/commits?author=IanVS" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://github.com/giancarlol"><img src="https://avatars.githubusercontent.com/u/33439343?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Giancarlo Brusca</b></sub></a><br /><a href="https://github.com/kentcdodds/advanced-react-hooks/commits?author=giancarlol" title="Documentation">📖</a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/tsargent"><img src="https://avatars.githubusercontent.com/u/173215?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Tyler Sargent</b></sub></a><br /><a href="https://github.com/kentcdodds/advanced-react-hooks/commits?author=tsargent" title="Tests">⚠️</a></td>
+    <td align="center"><a href="http://pavlos.dev"><img src="https://avatars.githubusercontent.com/u/100233?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Pavlos Vinieratos</b></sub></a><br /><a href="https://github.com/kentcdodds/advanced-react-hooks/commits?author=pvinis" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/Hillsie"><img src="https://avatars.githubusercontent.com/u/17975287?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Hills</b></sub></a><br /><a href="https://github.com/kentcdodds/advanced-react-hooks/commits?author=Hillsie" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/diegotc86"><img src="https://avatars.githubusercontent.com/u/23508800?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Diego Torres</b></sub></a><br /><a href="https://github.com/kentcdodds/advanced-react-hooks/commits?author=diegotc86" title="Code">💻</a></td>
+    <td align="center"><a href="https://icyjoseph.dev/"><img src="https://avatars.githubusercontent.com/u/21013447?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Joseph</b></sub></a><br /><a href="https://github.com/kentcdodds/advanced-react-hooks/commits?author=icyJoseph" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/marioleed"><img src="https://avatars.githubusercontent.com/u/1763448?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Mario Sannum</b></sub></a><br /><a href="https://github.com/kentcdodds/advanced-react-hooks/commits?author=marioleed" title="Code">💻</a></td>
   </tr>
 </table>
 

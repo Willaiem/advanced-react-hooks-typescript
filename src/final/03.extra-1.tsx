@@ -1,6 +1,6 @@
 // useContext: simple Counter
 // 💯 create a consumer hook
-// http://localhost:3000/isolated/final/03.extra-1.js
+// http://localhost:3000/isolated/final/03.extra-1.tsx
 
 import * as React from 'react'
 
