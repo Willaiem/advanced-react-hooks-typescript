@@ -447,6 +447,60 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "wdj82",
+      "name": "wdj82",
+      "avatar_url": "https://avatars.githubusercontent.com/u/37749088?v=4",
+      "profile": "https://github.com/wdj82",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "ssmkhrj",
+      "name": "Som Shekhar Mukherjee",
+      "avatar_url": "https://avatars.githubusercontent.com/u/49264891?v=4",
+      "profile": "https://github.com/ssmkhrj",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "DarkHorse1997",
+      "name": "Tanmoy Das",
+      "avatar_url": "https://avatars.githubusercontent.com/u/22052923?v=4",
+      "profile": "https://github.com/DarkHorse1997",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "maheshjag",
+      "name": "MJ",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1705603?v=4",
+      "profile": "https://github.com/maheshjag",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "SherylHohman",
+      "name": "Sheryl Hohman",
+      "avatar_url": "https://avatars.githubusercontent.com/u/8204778?v=4",
+      "profile": "https://stackoverflow.com/users/5411817/sherylhohman?tab=topactivity",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "shahbaz17",
+      "name": "Mohammad Shahbaz Alam",
+      "avatar_url": "https://avatars.githubusercontent.com/u/6962565?v=4",
+      "profile": "http://mdsbzalam.dev",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
