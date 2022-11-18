@@ -3,7 +3,7 @@
 
 import * as React from 'react'
 
-function useMedia(query, initialState = false) {
+function useMedia(query: string, initialState = false) {
   const [state, setState] = React.useState(initialState)
   React.useDebugValue(`\`${query}\` => ${state}`)
 
@@ -35,7 +35,7 @@ function Box() {
   const isSmall = useMedia('(max-width: 699px)')
   const color = isBig ? 'green' : isMedium ? 'yellow' : isSmall ? 'red' : null
 
-  return <div style={{width: 200, height: 200, backgroundColor: color}} />
+  return <div style={{ width: 200, height: 200, backgroundColor: color }} />
 }
 
 function App() {

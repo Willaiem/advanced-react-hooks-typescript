@@ -1,7 +1,7 @@
+import { alfredTip } from '@kentcdodds/react-workshop-app/test-utils'
+import { act, render } from '@testing-library/react'
 import matchMediaPolyfill from 'mq-polyfill'
 import * as React from 'react'
-import {alfredTip} from '@kentcdodds/react-workshop-app/test-utils'
-import {render, act} from '@testing-library/react'
 import App from '../final/06'
 // import App from '../exercise/06'
 
@@ -19,7 +19,7 @@ beforeAll(() => {
 
 test('works', () => {
   jest.spyOn(React, 'useDebugValue')
-  const {container} = render(<App />)
+  const { container } = render(<App />)
   alfredTip(
     () => expect(React.useDebugValue).toHaveBeenCalled(),
     `Make sure to call \`useDebugValue\` with the formatted value`,

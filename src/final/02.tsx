@@ -3,33 +3,56 @@
 
 import * as React from 'react'
 import {
-  fetchPokemon,
-  PokemonForm,
-  PokemonDataView,
-  PokemonInfoFallback,
-  PokemonErrorBoundary,
+  fetchPokemon, PokemonDataView, PokemonErrorBoundary, PokemonForm, PokemonInfoFallback
 } from '../pokemon'
 
-function asyncReducer(state, action) {
+type AsyncState<DataType> =
+  | {
+    status: 'idle' | 'pending'
+    data?: null
+    error?: null
+  }
+  | {
+    status: 'resolved'
+    data: DataType
+    error: null
+  }
+  | {
+    status: 'rejected'
+    data: null
+    error: Error
+  }
+
+type AsyncAction<DataType> =
+  | { type: 'reset' }
+  | { type: 'pending' }
+  | { type: 'resolved'; data: DataType }
+  | { type: 'rejected'; error: Error }
+
+function asyncReducer<DataType>(
+  state: AsyncState<DataType>,
+  action: AsyncAction<DataType>,
+) {
   switch (action.type) {
     case 'pending': {
-      return {status: 'pending', data: null, error: null}
+      return { status: 'pending' as const, data: null, error: null }
     }
     case 'resolved': {
-      return {status: 'resolved', data: action.data, error: null}
+      return { status: 'resolved' as const, data: action.data, error: null }
     }
     case 'rejected': {
-      return {status: 'rejected', data: null, error: action.error}
+      return { status: 'rejected' as const, data: null, error: action.error }
     }
     default: {
-      throw new Error(`Unhandled action type: ${action.type}`)
+      throw new Error(`Unhandled action: ${JSON.stringify(action)}`)
     }
   }
 }
 
-function useAsync(asyncCallback, initialState, dependencies) {
-  const [state, dispatch] = React.useReducer(asyncReducer, {
-    status: 'idle',
+function useAsync<DataType>(asyncCallback: () => Promise<DataType> | undefined, initialState: AsyncState<DataType>, dependencies: React.DependencyList) {
+  const [state, dispatch] = React.useReducer<
+    React.Reducer<AsyncState<DataType>, AsyncAction<DataType>>
+  >(asyncReducer, {
     data: null,
     error: null,
     ...initialState,
@@ -40,13 +63,13 @@ function useAsync(asyncCallback, initialState, dependencies) {
     if (!promise) {
       return
     }
-    dispatch({type: 'pending'})
+    dispatch({ type: 'pending' })
     promise.then(
       data => {
-        dispatch({type: 'resolved', data})
+        dispatch({ type: 'resolved', data })
       },
       error => {
-        dispatch({type: 'rejected', error})
+        dispatch({ type: 'rejected', error })
       },
     )
     // too bad the eslint plugin can't statically analyze this :-(
@@ -56,7 +79,7 @@ function useAsync(asyncCallback, initialState, dependencies) {
   return state
 }
 
-function PokemonInfo({pokemonName}: {pokemonName: string}) {
+function PokemonInfo({ pokemonName }: { pokemonName: string }) {
   const state = useAsync(
     () => {
       if (!pokemonName) {
@@ -64,11 +87,11 @@ function PokemonInfo({pokemonName}: {pokemonName: string}) {
       }
       return fetchPokemon(pokemonName)
     },
-    {status: pokemonName ? 'pending' : 'idle'},
+    { status: pokemonName ? 'pending' : 'idle' },
     [pokemonName],
   )
 
-  const {data: pokemon, status, error} = state
+  const { data: pokemon, status, error } = state
 
   switch (status) {
     case 'idle':
@@ -87,7 +110,7 @@ function PokemonInfo({pokemonName}: {pokemonName: string}) {
 function App() {
   const [pokemonName, setPokemonName] = React.useState('')
 
-  function handleSubmit(newPokemonName) {
+  function handleSubmit(newPokemonName: string) {
     setPokemonName(newPokemonName)
   }
 

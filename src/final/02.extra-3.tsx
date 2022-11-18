@@ -4,15 +4,12 @@
 
 import * as React from 'react'
 import {
-  fetchPokemon,
-  PokemonForm,
-  PokemonDataView,
-  PokemonInfoFallback,
-  PokemonErrorBoundary,
+  fetchPokemon, PokemonDataView, PokemonErrorBoundary, PokemonForm, PokemonInfoFallback
 } from '../pokemon'
+import { PokemonData } from '../types'
 
-function useSafeDispatch(dispatch) {
-  const mountedRef = React.useRef(false)
+function useSafeDispatch<Action>(dispatch: React.Dispatch<Action>) {
+  const mounted = React.useRef(false)
 
   // to make this even more generic you should use the useLayoutEffect hook to
   // make sure that you are correctly setting the mountedRef.current immediately
@@ -20,26 +17,59 @@ function useSafeDispatch(dispatch) {
   // with the dom another side effect inside a useLayoutEffect which does
   // interact with the dom may depend on the value being set
   React.useEffect(() => {
-    mountedRef.current = true
-    return () => (mountedRef.current = false)
+    mounted.current = true
+    return () => {
+      mounted.current = false
+    }
   }, [])
 
   return React.useCallback(
-    (...args) => (mountedRef.current ? dispatch(...args) : void 0),
+    (...args: Parameters<React.Dispatch<Action>>) => {
+      if (mounted.current) {
+        dispatch(...args)
+      }
+    },
     [dispatch],
   )
 }
 
-function asyncReducer(state, action) {
+type AsyncState<DataType> =
+  | {
+    status: 'idle' | 'pending'
+    data?: null
+    error?: null
+  }
+  | {
+    status: 'resolved'
+    data: DataType
+    error: null
+  }
+  | {
+    status: 'rejected'
+    data: null
+    error: Error
+  }
+
+type AsyncAction<DataType> =
+  | { type: 'reset' }
+  | { type: 'pending' }
+  | { type: 'resolved'; data: DataType }
+  | { type: 'rejected'; error: Error }
+
+
+function asyncReducer<DataType>(
+  state: AsyncState<DataType>,
+  action: AsyncAction<DataType>,
+): AsyncState<DataType> {
   switch (action.type) {
     case 'pending': {
-      return {status: 'pending', data: null, error: null}
+      return { status: 'pending', data: null, error: null }
     }
     case 'resolved': {
-      return {status: 'resolved', data: action.data, error: null}
+      return { status: 'resolved', data: action.data, error: null }
     }
     case 'rejected': {
-      return {status: 'rejected', data: null, error: action.error}
+      return { status: 'rejected', data: null, error: action.error }
     }
     default: {
       throw new Error(`Unhandled action type: ${action.type}`)
@@ -47,9 +77,10 @@ function asyncReducer(state, action) {
   }
 }
 
-function useAsync(initialState) {
-  const [state, unsafeDispatch] = React.useReducer(asyncReducer, {
-    status: 'idle',
+function useAsync<DataType>(initialState: AsyncState<DataType>) {
+  const [state, unsafeDispatch] = React.useReducer<
+    React.Reducer<AsyncState<DataType>, AsyncAction<DataType>>
+  >(asyncReducer, {
     data: null,
     error: null,
     ...initialState,
@@ -57,17 +88,17 @@ function useAsync(initialState) {
 
   const dispatch = useSafeDispatch(unsafeDispatch)
 
-  const {data, error, status} = state
+  const { data, error, status } = state
 
   const run = React.useCallback(
-    promise => {
-      dispatch({type: 'pending'})
+    (promise: Promise<DataType>) => {
+      dispatch({ type: 'pending' })
       promise.then(
         data => {
-          dispatch({type: 'resolved', data})
+          dispatch({ type: 'resolved', data })
         },
         error => {
-          dispatch({type: 'rejected', error})
+          dispatch({ type: 'rejected', error })
         },
       )
     },
@@ -82,8 +113,8 @@ function useAsync(initialState) {
   }
 }
 
-function PokemonInfo({pokemonName}: {pokemonName: string}) {
-  const {data: pokemon, status, error, run} = useAsync({
+function PokemonInfo({ pokemonName }: { pokemonName: string }) {
+  const { data: pokemon, status, error, run } = useAsync<PokemonData>({
     status: pokemonName ? 'pending' : 'idle',
   })
 
@@ -111,7 +142,7 @@ function PokemonInfo({pokemonName}: {pokemonName: string}) {
 function App() {
   const [pokemonName, setPokemonName] = React.useState('')
 
-  function handleSubmit(newPokemonName) {
+  function handleSubmit(newPokemonName: string) {
     setPokemonName(newPokemonName)
   }
 

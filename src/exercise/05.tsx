@@ -3,40 +3,59 @@
 
 import * as React from 'react'
 
-type Message = {id: string; author: string; content: string}
+type Message = { id: string; author: string; content: string }
+
+type MessagesDisplayProps = {
+  messages: Message[]
+}
 
 // 🐨 wrap this in a React.forwardRef and accept `ref` as the second argument
-function MessagesDisplay({messages}: {messages: Array<Message>}) {
-  const containerRef = React.useRef<HTMLDivElement>(null)
+const MessagesDisplay = React.forwardRef<{}, MessagesDisplayProps>(
+  (
+    {
+      messages,
+    },
+    ref,
+  ) => {
+    const containerRef = React.useRef<HTMLDivElement>(null)
 
-  React.useLayoutEffect(() => {
-    scrollToBottom()
-  })
+    React.useLayoutEffect(() => {
+      scrollToBottom()
+    })
 
-  // 💰 you're gonna want this as part of your imperative methods
-  // function scrollToTop() {
-  //   if (!containerRef.current) return
-  //   containerRef.current.scrollTop = 0
-  // }
-  function scrollToBottom() {
-    if (!containerRef.current) return
-    containerRef.current.scrollTop = containerRef.current.scrollHeight
-  }
+    // 💰 you're gonna want this as part of your imperative methods
+    function scrollToTop() {
+      if (!containerRef.current) return
+      containerRef.current.scrollTop = 0
+    }
 
-  // 🐨 call useImperativeHandle here with your ref and a callback function
-  // that returns an object with scrollToTop and scrollToBottom
+    function scrollToBottom() {
+      if (!containerRef.current) return
+      containerRef.current.scrollTop = containerRef.current.scrollHeight
+    }
 
-  return (
-    <div ref={containerRef} role="log">
-      {messages.map((message, index, array) => (
-        <div key={message.id}>
-          <strong>{message.author}</strong>: <span>{message.content}</span>
-          {array.length - 1 === index ? null : <hr />}
-        </div>
-      ))}
-    </div>
-  )
-}
+    React.useImperativeHandle(ref, () => {
+      return {
+        scrollToTop,
+        scrollToBottom,
+      }
+    })
+
+    // 🐨 call useImperativeHandle here with your ref and a callback function
+    // that returns an object with scrollToTop and scrollToBottom
+
+    return (
+      <div ref={containerRef} role="log">
+        {messages.map((message, index, array) => (
+          <div key={message.id}>
+            <strong>{message.author}</strong>: <span>{message.content}</span>
+            {array.length - 1 === index ? null : <hr />}
+          </div>
+        ))}
+      </div>
+    )
+  },
+)
 
 function App() {
   const messageDisplayRef = React.useRef(null)
@@ -55,7 +74,7 @@ function App() {
 
   return (
     <div className="messaging-app">
-      <div style={{display: 'flex', justifyContent: 'space-between'}}>
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <button onClick={addMessage}>add message</button>
         <button onClick={removeMessage}>remove message</button>
       </div>
@@ -64,7 +83,7 @@ function App() {
         <button onClick={scrollToTop}>scroll to top</button>
       </div>
       {/* 🐨 add ref prop here */}
-      <MessagesDisplay messages={messages} />
+      <MessagesDisplay messages={messages} ref={messageDisplayRef} />
       <div>
         <button onClick={scrollToBottom}>scroll to bottom</button>
       </div>

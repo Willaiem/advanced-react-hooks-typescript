@@ -6,22 +6,18 @@
 // this in the regular exercise file.
 
 import * as React from 'react'
-import {useAsync} from '../utils'
 import {
-  fetchPokemon,
-  PokemonForm,
-  PokemonDataView,
-  PokemonInfoFallback,
-  PokemonErrorBoundary,
+  fetchPokemon, PokemonDataView, PokemonErrorBoundary, PokemonForm, PokemonInfoFallback
 } from '../pokemon'
-import type {PokemonData} from '../types'
+import type { PokemonData } from '../types'
+import { useAsync } from '../utils'
 
 type PokemonCacheState = Record<string, PokemonData>
 type PokemonCacheContextType = [
   PokemonCacheState,
   React.Dispatch<PokemonCacheAction>,
 ]
-const PokemonCacheContext = React.createContext<PokemonCacheContextType>(
+const PokemonCacheContext = React.createContext<PokemonCacheContextType | undefined>(
   undefined,
 )
 
@@ -37,7 +33,7 @@ function pokemonCacheReducer(
 ) {
   switch (action.type) {
     case 'ADD_POKEMON': {
-      return {...state, [action.pokemonName]: action.pokemonData}
+      return { ...state, [action.pokemonName]: action.pokemonData }
     }
     default: {
       throw new Error(`Unhandled action type: ${action.type}`)
@@ -45,7 +41,7 @@ function pokemonCacheReducer(
   }
 }
 
-function PokemonCacheProvider({children}: {children: React.ReactNode}) {
+function PokemonCacheProvider({ children }: { children: React.ReactNode }) {
   const [cache, dispatch] = React.useReducer(pokemonCacheReducer, {})
   return (
     <PokemonCacheContext.Provider value={[cache, dispatch]}>
@@ -64,10 +60,10 @@ function usePokemonCache() {
   return context
 }
 
-function PokemonInfo({pokemonName}: {pokemonName: string}) {
+function PokemonInfo({ pokemonName }: { pokemonName: string }) {
   const [cache, dispatch] = usePokemonCache()
 
-  const {data: pokemon, status, error, run, setData} = useAsync<PokemonData>({
+  const { data: pokemon, status, error, run, setData } = useAsync<PokemonData>({
     status: pokemonName ? 'pending' : 'idle',
   })
 
@@ -79,7 +75,7 @@ function PokemonInfo({pokemonName}: {pokemonName: string}) {
     } else {
       run(
         fetchPokemon(pokemonName).then(pokemonData => {
-          dispatch({type: 'ADD_POKEMON', pokemonName, pokemonData})
+          dispatch({ type: 'ADD_POKEMON', pokemonName, pokemonData })
           return pokemonData
         }),
       )
@@ -100,16 +96,16 @@ function PokemonInfo({pokemonName}: {pokemonName: string}) {
   }
 }
 
-function PreviousPokemon({onSelect}) {
+function PreviousPokemon({ onSelect }: { onSelect: (pokemonName: string) => void }) {
   const [cache] = usePokemonCache()
   return (
     <div>
       Previous Pokemon
-      <ul style={{listStyle: 'none', paddingLeft: 0}}>
+      <ul style={{ listStyle: 'none', paddingLeft: 0 }}>
         {Object.keys(cache).map(pokemonName => (
-          <li key={pokemonName} style={{margin: '4px auto'}}>
+          <li key={pokemonName} style={{ margin: '4px auto' }}>
             <button
-              style={{width: '100%'}}
+              style={{ width: '100%' }}
               onClick={() => onSelect(pokemonName)}
             >
               {pokemonName}
@@ -121,10 +117,10 @@ function PreviousPokemon({onSelect}) {
   )
 }
 
-function PokemonSection({onSelect, pokemonName}) {
+function PokemonSection({ onSelect, pokemonName }: { onSelect: (pokemonName: string) => void, pokemonName: string }) {
   return (
     <PokemonCacheProvider>
-      <div style={{display: 'flex'}}>
+      <div style={{ display: 'flex' }}>
         <PreviousPokemon onSelect={onSelect} />
         <div className="pokemon-info">
           <PokemonErrorBoundary
@@ -140,13 +136,13 @@ function PokemonSection({onSelect, pokemonName}) {
 }
 
 function App() {
-  const [pokemonName, setPokemonName] = React.useState(null)
+  const [pokemonName, setPokemonName] = React.useState<string>('')
 
-  function handleSubmit(newPokemonName) {
+  function handleSubmit(newPokemonName: string) {
     setPokemonName(newPokemonName)
   }
 
-  function handleSelect(newPokemonName) {
+  function handleSelect(newPokemonName: string) {
     setPokemonName(newPokemonName)
   }
 
