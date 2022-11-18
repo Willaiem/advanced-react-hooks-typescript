@@ -13,4 +13,4 @@ type PokemonData = {
   }
 }
 
-export {PokemonData}
+export { PokemonData }
