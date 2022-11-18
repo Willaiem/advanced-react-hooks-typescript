@@ -1,12 +1,12 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
+    "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "strict": true,
+    "strict": false,
     "forceConsistentCasingInFileNames": true,
     "module": "esnext",
     "moduleResolution": "node",
@@ -15,6 +15,5 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "noFallthroughCasesInSwitch": true
-  },
-  "include": ["src", "src/setupTests.ts"]
+  }
 }
