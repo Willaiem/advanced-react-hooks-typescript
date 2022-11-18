@@ -1,7 +1,14 @@
 import * as React from 'react'
-import type {PokemonData} from './types'
-import type {FallbackProps, ErrorBoundaryProps} from 'react-error-boundary'
-import {ErrorBoundary} from 'react-error-boundary'
+import type { ErrorBoundaryProps, FallbackProps } from 'react-error-boundary'
+import { ErrorBoundary } from 'react-error-boundary'
+import type { PokemonData } from './types'
+
+type PokemonResponse = {
+  data?: {
+    pokemon: Omit<PokemonData, 'fetchedAt'>
+  }
+  errors?: Array<{ message: string }>
+}
 
 const formatDate = (date: Date) =>
   `${date.getHours()}:${String(date.getMinutes()).padStart(2, '0')} ${String(
@@ -44,22 +51,17 @@ async function fetchPokemon(
     },
     body: JSON.stringify({
       query: pokemonQuery,
-      variables: {name: name.toLowerCase()},
+      variables: { name: name.toLowerCase() },
     }),
   })
 
-  type JSONResponse = {
-    data?: {
-      pokemon: Omit<PokemonData, 'fetchedAt'>
-    }
-    errors?: Array<{message: string}>
-  }
-  const {data, errors}: JSONResponse = await response.json()
+
+  const { data, errors }: PokemonResponse = await response.json()
   if (response.ok) {
     const pokemon = data?.pokemon
     if (pokemon) {
       // add fetchedAt helper
-      return Object.assign(pokemon, {fetchedAt: formatDate(new Date())})
+      return Object.assign(pokemon, { fetchedAt: formatDate(new Date()) })
     } else {
       return Promise.reject(new Error(`No pokemon with the name "${name}"`))
     }
@@ -70,7 +72,7 @@ async function fetchPokemon(
   }
 }
 
-function PokemonInfoFallback({name}: {name: string}) {
+function PokemonInfoFallback({ name }: { name: string }) {
   const initialName = React.useRef(name).current
   const fallbackPokemonData: PokemonData = {
     id: 'loading-pokemon',
@@ -79,8 +81,8 @@ function PokemonInfoFallback({name}: {name: string}) {
     image: '/img/pokemon/fallback-pokemon.jpg',
     attacks: {
       special: [
-        {name: 'Loading Attack 1', type: 'Type', damage: -1},
-        {name: 'Loading Attack 2', type: 'Type', damage: -1},
+        { name: 'Loading Attack 1', type: 'Type', damage: -1 },
+        { name: 'Loading Attack 2', type: 'Type', damage: -1 },
       ],
     },
     fetchedAt: 'loading...',
@@ -88,7 +90,7 @@ function PokemonInfoFallback({name}: {name: string}) {
   return <PokemonDataView pokemon={fallbackPokemonData} />
 }
 
-function PokemonDataView({pokemon}: {pokemon: PokemonData}) {
+function PokemonDataView({ pokemon }: { pokemon: PokemonData }) {
   return (
     <div>
       <div className="pokemon-info__img-wrapper">
@@ -145,7 +147,7 @@ function PokemonForm({
     setPokemonName(e.currentTarget.value)
   }
 
-  function handleSubmit(e: React.SyntheticEvent<HTMLFormElement>) {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     onSubmit(pokemonName)
   }
@@ -202,18 +204,18 @@ function PokemonForm({
   )
 }
 
-function ErrorFallback({error, resetErrorBoundary}: FallbackProps) {
+function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
   return (
     <div role="alert">
       There was an error:{' '}
-      <pre style={{whiteSpace: 'normal'}}>{error.message}</pre>
+      <pre style={{ whiteSpace: 'normal' }}>{error.message}</pre>
       <button onClick={resetErrorBoundary}>Try again</button>
     </div>
   )
 }
 
 function PokemonErrorBoundary(
-  props: React.PropsWithChildren<Omit<ErrorBoundaryProps, 'FallbackComponent'>>,
+  props: React.PropsWithChildren<Omit<ErrorBoundaryProps, 'fallbackRender' | 'fallback'>>,
 ) {
   return <ErrorBoundary FallbackComponent={ErrorFallback} {...props} />
 }
