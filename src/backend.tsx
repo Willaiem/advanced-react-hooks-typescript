@@ -1,13 +1,13 @@
-import {graphql} from '@kentcdodds/react-workshop-app/server'
-import type {PokemonData} from './types'
+import { graphql } from '@kentcdodds/react-workshop-app/server'
+import type { PokemonData } from './types'
 
 const pokemonApi = graphql.link('https://graphql-pokemon2.vercel.app/')
 
 export const handlers = [
-  pokemonApi.query('PokemonInfo', (req, res, ctx) => {
+  pokemonApi.query<Record<string, any>, { name: keyof typeof allPokemon }>('PokemonInfo', (req, res, ctx) => {
     const pokemon = allPokemon[req.variables.name.toLowerCase()]
     if (pokemon) {
-      return res(ctx.status(200), ctx.data({pokemon}))
+      return res(ctx.status(200), ctx.data({ pokemon }))
     } else {
       const pokemonNames = Object.keys(allPokemon)
       const randomName =
